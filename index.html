@@ -8,6 +8,18 @@
   <title>Etch-a-Sketch</title>
 </head>
 <body>
-  <div class="grid-container"></div>
+  <div class="app-container">
+    <div class="controls-container">
+      <div class="color-picker-wrapper"><input class="color-picker" type="color"></div>
+      color
+      <button class="rainbow-mode-btn"></button>
+      rainbow mode
+      <input class="grid-length-slider" type="range" min="4" max="64" value="30">
+    </div>
+    <div class="sketchboard">
+      <div class="grid-container"></div>
+      <input class="grid-erase-slider" type="range" min="0" max="10" value="0">
+    </div>
+  </div>
 </body>
 </html>

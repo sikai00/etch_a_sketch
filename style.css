@@ -1,11 +1,64 @@
+.app-container {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.controls-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 200px;
+  border: 1px dotted red;
+}
+
+.color-picker-wrapper {
+  height: 50px;
+  width: 50px;
+  border-radius: 50px;
+  overflow: hidden;
+  margin-top: 10px;
+}
+
+.color-picker {
+  padding: 0;
+  border: 0;
+  height: 150%;
+  width: 150%;
+  transform: translate(-25%, -25%);
+}
+
+.rainbow-mode-btn {
+  margin-top: 10px;
+  height: 50px;
+  width: 50px;
+  border-radius: 50px;
+  border: 0;
+  background: linear-gradient(to bottom, #33ccff 0%, #ff99cc 100%);
+  padding: 0;
+}
+
+.grid-length-slider {
+  margin-top: 10px;
+}
+
+.sketchboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .grid-container {
   height: 500px;
   width: 500px;
   display: grid;
 }
 
-.grid-container div {
-  background-color: aquamarine;
+.grid-element {
+  background-color: white;
   border: 0.5px black solid;
   user-select: none;
+}
+
+.grid-erase-slider {
+  width: 105%;
 }
