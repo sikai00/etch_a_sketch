@@ -30,7 +30,8 @@
 
 .rainbow-mode-btn,
 .darken-mode-btn,
-.lighten-mode-btn {
+.lighten-mode-btn,
+.gridlines-btn {
   margin-top: 10px;
   height: 50px;
   width: 50px;
@@ -50,7 +51,8 @@
 }
 
 .darken-mode-btn.pressed,
-.lighten-mode-btn.pressed {
+.lighten-mode-btn.pressed,
+.gridlines-btn.pressed {
   background: rgb(156, 156, 156);
 }
 

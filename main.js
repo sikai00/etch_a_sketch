@@ -2,6 +2,7 @@ let primaryColor = '#000000';
 let rainbowMode = false;
 let darkenMode = false;
 let lightenMode = false;
+let gridlines = true;
 
 // Main program
 function main() {
@@ -28,6 +29,9 @@ function setUpControls() {
   // Lighten mode button
   document.querySelector('.lighten-mode-btn').addEventListener('click', toggleLightenMode);
 
+  // Gridlines button
+  document.querySelector('.gridlines-btn').addEventListener('click', toggleGridlines);
+
   // Grid length slider
   document.querySelector('.grid-length-slider').addEventListener('mouseup', function(e) {
     clearGrid();
@@ -52,12 +56,16 @@ function createGrid(length) {
     for (let j = 0; j < length; j++) {
       const element = document.createElement('div');
       element.classList.add('grid-element');
+      element.classList.add(`row-${i}`);
       element.classList.add(`col-${j}`);
       element.style.backgroundColor = 'rgb(255, 255, 255)';
       element.addEventListener('mousedown', e => sketch(e, primaryColor));
       element.addEventListener('mouseenter', e => sketch(e, primaryColor));
       container.appendChild(element);
     }
+  }
+  if (!gridlines) {
+    removeGridlines();
   }
 }
 
@@ -145,6 +153,34 @@ function toggleLightenMode() {
   const btn = document.querySelector('.lighten-mode-btn');
   btn.classList.toggle('pressed');
   lightenMode = !lightenMode;
+}
+
+function removeGridlines() {
+  document.querySelectorAll('.grid-container .grid-element').forEach(element => {
+    const isBottomElements = element.className.includes(`row-${getGridLength() - 1}`);
+    const isRightElements = element.className.includes(`col-${getGridLength() - 1}`)
+    if (!isBottomElements) {
+      if (element.style.borderBottom == '0px') {
+        element.style.borderBottom = '1px solid black';
+      } else {
+        element.style.borderBottom = '0px';
+      }
+    }
+    if (!isRightElements) {
+      if (element.style.borderRight == '0px') {
+        element.style.borderRight = '1px solid black';
+      } else {
+        element.style.borderRight = '0px';
+      }
+    }
+  });
+}
+
+function toggleGridlines() {
+  removeGridlines();
+  const btn = document.querySelector('.gridlines-btn');
+  btn.classList.toggle('pressed');
+  gridlines = !gridlines;
 }
 
 function getGridLength() {
