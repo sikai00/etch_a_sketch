@@ -5,12 +5,15 @@ function createGrid(length) {
   const container = document.querySelector('.grid-container');
   container.style.gridTemplateRows = `repeat(${length}, 1fr)`;
   container.style.gridTemplateColumns = `repeat(${length}, 1fr)`;
-  for (let i = 0; i < length * length; i++) {
-    const element = document.createElement('div');
-    element.classList.add('grid-element');
-    element.addEventListener('mousedown', e => onClickAndDrag(e, primaryColor));
-    element.addEventListener('mouseenter', e => onClickAndDrag(e, primaryColor));
-    container.appendChild(element);
+  for (let i = 0; i < length; i++) {
+    for (let j = 0; j < length; j++) {
+      const element = document.createElement('div');
+      element.classList.add('grid-element');
+      element.classList.add(`col-${j}`);
+      element.addEventListener('mousedown', e => onClickAndDrag(e, primaryColor));
+      element.addEventListener('mouseenter', e => onClickAndDrag(e, primaryColor));
+      container.appendChild(element);
+    }
   }
 }
 
@@ -37,8 +40,27 @@ function clearGrid() {
   }
 }
 
+function getGridLength() {
+  return document.querySelector('.grid-length-slider').value;
+}
 
-createGrid(9);
+function gridEraser() {
+  const eraseSlider = document.querySelector('.grid-erase-slider');
+  const gridLength = getGridLength();
+  const step = eraseSlider.getAttribute('max') / gridLength; // each step of the slider is this amount
+  const gridContainer = document.querySelector('.grid-container');
+  const currCol = Math.round(eraseSlider.value / step);
+
+  for (let i = 0; i <= currCol; i++) {
+    gridContainer.querySelectorAll(`.col-${i}`)
+    .forEach(x => {
+      x.style.backgroundColor = 'white';
+      });
+  }
+  console.log(Math.round(eraseSlider.value / step));
+}
+
+createGrid(getGridLength());
 document.querySelector('.color-picker').addEventListener("change", function(e) {
   primaryColor = e.target.value;
 });
@@ -47,3 +69,4 @@ document.querySelector('.grid-length-slider').addEventListener('mouseup', functi
   clearGrid();
   createGrid(e.target.value);
 })
+document.querySelector('.grid-erase-slider').addEventListener('mouseup', gridEraser);

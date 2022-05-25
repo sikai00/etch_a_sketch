@@ -60,5 +60,18 @@
 }
 
 .grid-erase-slider {
-  width: 105%;
+  width: 101%;
+  pointer-events: none;
+}
+
+.grid-erase-slider::-webkit-slider-thumb {
+  pointer-events: auto;
+}
+
+.grid-erase-slider::-moz-range-thumb {
+  pointer-events: auto;
+}
+
+.grid-erase-slider::-ms-thumb {
+  pointer-events: auto;
 }
