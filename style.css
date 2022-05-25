@@ -17,6 +17,7 @@
   border-radius: 50px;
   overflow: hidden;
   margin-top: 10px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 3px 8px;
 }
 
 .color-picker {
@@ -27,14 +28,30 @@
   transform: translate(-25%, -25%);
 }
 
-.rainbow-mode-btn {
+.rainbow-mode-btn,
+.darken-mode-btn,
+.lighten-mode-btn {
   margin-top: 10px;
   height: 50px;
   width: 50px;
   border-radius: 50px;
   border: 0;
-  background: linear-gradient(to bottom, #33ccff 0%, #ff99cc 100%);
+  background: rgb(211, 211, 211);
   padding: 0;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 3px 8px;
+}
+
+.pressed {
+  box-shadow: inset rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.rainbow-mode-btn.pressed {
+  background: linear-gradient(to right, #e9bae6, rgb(146, 165, 204), rgb(231, 211, 174));
+}
+
+.darken-mode-btn.pressed,
+.lighten-mode-btn.pressed {
+  background: rgb(156, 156, 156);
 }
 
 .grid-length-slider {
@@ -51,12 +68,15 @@
   height: 500px;
   width: 500px;
   display: grid;
+  border-top: 1px solid black;
+  border-left: 1px solid black;
 }
 
 .grid-element {
   background-color: white;
-  border: 0.5px black solid;
   user-select: none;
+  border-right: 1px black solid;
+  border-bottom: 1px black solid;
 }
 
 .grid-erase-slider {

@@ -1,5 +1,7 @@
 let primaryColor = '#000000';
 let rainbowMode = false;
+let darkenMode = false;
+let lightenMode = false;
 
 // Main program
 function main() {
@@ -19,6 +21,12 @@ function setUpControls() {
 
   // Rainbow mode button
   document.querySelector('.rainbow-mode-btn').addEventListener('click', toggleRainbowMode);
+
+  // Darken mode button
+  document.querySelector('.darken-mode-btn').addEventListener('click', toggleDarkenMode);
+
+  // Lighten mode button
+  document.querySelector('.lighten-mode-btn').addEventListener('click', toggleLightenMode);
 
   // Grid length slider
   document.querySelector('.grid-length-slider').addEventListener('mouseup', function(e) {
@@ -45,6 +53,7 @@ function createGrid(length) {
       const element = document.createElement('div');
       element.classList.add('grid-element');
       element.classList.add(`col-${j}`);
+      element.style.backgroundColor = 'rgb(255, 255, 255)';
       element.addEventListener('mousedown', e => sketch(e, primaryColor));
       element.addEventListener('mouseenter', e => sketch(e, primaryColor));
       container.appendChild(element);
@@ -54,14 +63,31 @@ function createGrid(length) {
 
 function sketch(e, color) {
   if (e.buttons != 0) {
-    if (!rainbowMode) {
-      e.target.style.backgroundColor = color;
+    if (rainbowMode) {
+      const randomInt = () => Math.floor(Math.random() * 256);
+      e.target.style.backgroundColor = `rgb(
+        ${randomInt()}, ${randomInt()}, ${randomInt()})`;
+    } else if (darkenMode) {
+      const curr = parseRgb(e.target.style.backgroundColor);
+      e.target.style.backgroundColor = `rgb(
+        ${curr['r'] - 10}, ${curr['g'] - 10}, ${curr['b'] - 10})`;
+    } else if (lightenMode) {
+      const curr = parseRgb(e.target.style.backgroundColor);
+      e.target.style.backgroundColor = `rgb(
+        ${curr['r'] + 10}, ${curr['g'] + 10}, ${curr['b'] + 10})`;
     } else {
-      let randomColor = Math.floor(Math.random()*16777215).toString(16);
-      console.log(randomColor);
-      e.target.style.backgroundColor = "#" + randomColor;
+      e.target.style.backgroundColor = color;
     }
   }
+}
+
+function parseRgb(rgb) {
+  let result = /^rgb\((\d{0,3}), *(\d{0,3}), *(\d{0,3})\)$/.exec(rgb);
+  return result ? {
+    r : parseInt(result[1]),
+    g : parseInt(result[2]),
+    b : parseInt(result[3])
+  } : null;
 }
 
 function clearGrid() {
@@ -79,14 +105,46 @@ function gridEraser(e) {
 
     const gridContainer = document.querySelector('.grid-container');
     gridContainer.querySelectorAll(`.col-${currCol}`).forEach(
-      element => element.style.backgroundColor = null
+      element => element.style.backgroundColor = 'rgb(255, 255, 255)'
     );
   }
 }
 
 // Miscellaneous functions
+function resetOtherMode(currentMode) {
+  if (currentMode != "rainbowMode") {
+    document.querySelector('.rainbow-mode-btn').classList.remove('pressed');
+    rainbowMode = false;
+  }
+  if (currentMode != "darkenMode") {
+    document.querySelector('.darken-mode-btn').classList.remove('pressed');
+    darkenMode = false;
+  }
+  if (currentMode != "lightenMode") {
+    document.querySelector('.lighten-mode-btn').classList.remove('pressed');
+    lightenMode = false;
+  }
+}
+
 function toggleRainbowMode() {
+  resetOtherMode("rainbowMode");
+  const btn = document.querySelector('.rainbow-mode-btn');
+  btn.classList.toggle('pressed');
   rainbowMode = !rainbowMode;
+}
+
+function toggleDarkenMode() {
+  resetOtherMode("darkenMode");
+  const btn = document.querySelector('.darken-mode-btn');
+  btn.classList.toggle('pressed');
+  darkenMode = !darkenMode;
+}
+
+function toggleLightenMode() {
+  resetOtherMode("lightenMode");
+  const btn = document.querySelector('.lighten-mode-btn');
+  btn.classList.toggle('pressed');
+  lightenMode = !lightenMode;
 }
 
 function getGridLength() {
