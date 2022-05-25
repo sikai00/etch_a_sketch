@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>JavaScript Promise</h2>
+
+<p></p>
+
+<h1 id="demo"></h1>
+
+<div style="height: 100px; width: 100px; border: 1px solid black">box</div>
+<div style="height: 100px; width: 100px; border: 1px solid black">box</div>
+<div style="height: 100px; width: 100px; border: 1px solid black">box</div>
+<div style="height: 100px; width: 100px; border: 1px solid black">box</div>
+
+
+<script>
+  const box = document.querySelectorAll('div');
+  box.forEach(b => b.addEventListener('click', e => {
+    console.log(e);
+    if (e.buttons != 0) {
+      b.style.backgroundColor = 'black';
+    }
+  }));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,11 @@
+.grid-container {
+  height: 500px;
+  width: 500px;
+  display: grid;
+}
+
+.grid-container div {
+  background-color: aquamarine;
+  border: 0.5px black solid;
+  user-select: none;
+}
