@@ -1,4 +1,4 @@
-.app-container {
+.main {
   display: flex;
   justify-content: flex-start;
 }
@@ -8,7 +8,7 @@
   flex-direction: column;
   align-items: center;
   width: 200px;
-  border: 1px dotted red;
+  /* border: 1px dotted red; */
 }
 
 .color-picker-wrapper {
@@ -41,7 +41,7 @@
   margin-top: 10px;
 }
 
-.sketchboard {
+.sketchboard-app {
   display: flex;
   flex-direction: column;
   align-items: center;
