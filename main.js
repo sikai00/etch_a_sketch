@@ -44,20 +44,15 @@ function getGridLength() {
   return document.querySelector('.grid-length-slider').value;
 }
 
-function gridEraser() {
-  const eraseSlider = document.querySelector('.grid-erase-slider');
-  const gridLength = getGridLength();
-  const step = eraseSlider.getAttribute('max') / gridLength; // each step of the slider is this amount
-  const gridContainer = document.querySelector('.grid-container');
-  const currCol = Math.round(eraseSlider.value / step);
+function gridEraser(e) {
+  if (e.buttons != 0) {
+    const eraseSlider = document.querySelector('.grid-erase-slider');
+    const gridContainer = document.querySelector('.grid-container');
 
-  for (let i = 0; i <= currCol; i++) {
-    gridContainer.querySelectorAll(`.col-${i}`)
-    .forEach(x => {
-      x.style.backgroundColor = 'white';
-      });
+    const step = eraseSlider.getAttribute('max') / getGridLength();
+    const currCol = Math.round(eraseSlider.value / step) - 1;
+    gridContainer.querySelectorAll(`.col-${currCol}`).forEach(x => x.style.backgroundColor = 'white');
   }
-  console.log(Math.round(eraseSlider.value / step));
 }
 
 createGrid(getGridLength());
@@ -69,4 +64,4 @@ document.querySelector('.grid-length-slider').addEventListener('mouseup', functi
   clearGrid();
   createGrid(e.target.value);
 })
-document.querySelector('.grid-erase-slider').addEventListener('mouseup', gridEraser);
+document.querySelector('.grid-erase-slider').addEventListener('mousemove', e => gridEraser(e));
